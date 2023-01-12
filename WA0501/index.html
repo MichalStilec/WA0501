@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Img {
+            author;
+            name;
+            price;
+            year;
+
+            constructor (author,name,price,year) {
+                this.author = author;
+                this.name = name;
+                this.price = price;
+                this.year = year;
+            }            
+        }
+
+        class Gallery {
+            images = [];
+            getTotalPrice() {
+                let total = 0;
+                this.images.forEach(x => {total += x.price});
+                return total;
+            } 
+            getThreeExpensive() {
+                let newImages = this.images;
+                newImages.sort(function(a,b){return b.price - a.price});
+                for (let i = 0; i < 3; i++) {
+                    console.log(newImages[i].author + " " + newImages[i].price)
+                }
+            } 
+            getAuthorsImages(x) {
+                let anotherImages = [];
+                this.images.forEach(Image => {if(Image.author === x) anotherImages.push(Image)})
+                anotherImages.sort(function(a,b){return b.price - a.price});
+                anotherImages.forEach(image => console.log(image.author + " " + image.price))
+            }
+            getAuthorsSorted() {
+                let authors = [];
+                this.images.forEach(x => {if(!authors.includes(x.author)) authors.push(x.author)})
+                authors.forEach (x => this.getAuthorsImages(x) + console.log(""))
+            }
+        }
+
+        let gall = new Gallery();
+        gall.images.push(new Img("Hampter", "nevim", 666, 2000));
+        gall.images.push(new Img("Doge", "fakt nevim", 500, 1990));
+        gall.images.push(new Img("Hampter", "nejakej nazev", 800, 2005));
+        gall.images.push(new Img("Hampter", "lorem", 334, 1995));
+        gall.images.push(new Img("Doge", "...", 900, 1980));
+
+        console.log("Total price of all images: " + gall.getTotalPrice());
+        console.log("\nThree most expensive images: ");
+        gall.getThreeExpensive();
+        console.log("\nGet all of author images: ");
+        gall.getAuthorsImages("Hampter");
+        console.log("\nGet all of authors images and also it is sorted: ");
+        gall.getAuthorsSorted();
+        
+    </script>
+</body>
+</html>
